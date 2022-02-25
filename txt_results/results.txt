@@ -1,0 +1,46 @@
+Results:
+
+Small set:
+i/e -- 69%
+n/s -- 77%
+t/f -- 80%
+p/j -- 69%
+
+Small set sample 50/50:
+i/e -- 69%
+n/s -- 77%
+t/f -- 80%
+p/j -- 69%
+
+-------------------
+
+Goals:
+
+
+Graphing:
+- Sentiment Analysis
+
+Preprocessing
+- Part of speech tagging
+
+Modeling:
+- Learn more about SGD Classifier (hypertuning)
+- BERT XLNet (gensim)
+- Word2vec / doc2vec (what if i took and entire corpus per class and divided by sentences?)
+
+
+Application:
+- Preprogrammed ChatBot
+- Predict each individual trait
+- Predict liklihood of that trait
+
+
+Other:
+- Translation
+- Fix Spelling
+- Tableau 
+
+Other projects:
+- Auto summarize
+- Predicitve text
+- 
