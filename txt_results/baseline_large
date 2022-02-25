@@ -1,0 +1,44 @@
+Vectorizing....  @ Fri Feb 25 13:20:34 2022
+DONE
+--------------------
+Working on SGDClassifier @ Fri Feb 25 13:21:56 2022
+Class: i/e Model: SGDClassifier CV: 0.7963 TEST ACC: 0.7929862715780889
+DONE
+--------------------
+Working on NaiveBayes @ Fri Feb 25 13:22:41 2022
+Class: i/e Model: NaiveBayes CV: 0.8024 TEST ACC: 0.803792306646731
+DONE
+--------------------
+Vectorizing....  @ Fri Feb 25 13:22:49 2022
+DONE
+--------------------
+Working on SGDClassifier @ Fri Feb 25 13:24:04 2022
+Class: n/s Model: SGDClassifier CV: 0.9209 TEST ACC: 0.9289961941008563
+DONE
+--------------------
+Working on NaiveBayes @ Fri Feb 25 13:24:52 2022
+Class: n/s Model: NaiveBayes CV: 0.9403 TEST ACC: 0.9412294413483757
+DONE
+--------------------
+Vectorizing....  @ Fri Feb 25 13:25:00 2022
+DONE
+--------------------
+Working on SGDClassifier @ Fri Feb 25 13:26:22 2022
+Class: t/f Model: SGDClassifier CV: 0.735 TEST ACC: 0.7354220470300394
+DONE
+--------------------
+Working on NaiveBayes @ Fri Feb 25 13:27:08 2022
+Class: t/f Model: NaiveBayes CV: 0.728 TEST ACC: 0.7329244257170042
+DONE
+--------------------
+Vectorizing....  @ Fri Feb 25 13:27:16 2022
+DONE
+--------------------
+Working on SGDClassifier @ Fri Feb 25 13:28:36 2022
+Class: p/j Model: SGDClassifier CV: 0.6397 TEST ACC: 0.6460343890172625
+DONE
+--------------------
+Working on NaiveBayes @ Fri Feb 25 13:29:23 2022
+Class: p/j Model: NaiveBayes CV: 0.6489 TEST ACC: 0.6481752072855783
+DONE
+--------------------

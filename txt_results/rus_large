@@ -1,0 +1,52 @@
+(array(['e', 'i'], dtype=object), array([ 34447, 142121]))
+(array(['e', 'i'], dtype=object), array([34447, 34447]))
+Vectorizing....  @ Fri Feb 25 13:13:42 2022
+DONE
+--------------------
+Working on SGDClassifier @ Fri Feb 25 13:14:22 2022
+Class: i/e Model: SGDClassifier CV: 0.6432 TEST ACC: 0.6913993475601468
+DONE
+--------------------
+Working on NaiveBayes @ Fri Feb 25 13:14:32 2022
+Class: i/e Model: NaiveBayes CV: 0.6394 TEST ACC: 0.6041694984368629
+DONE
+--------------------
+(array(['n', 's'], dtype=object), array([166314,  10254]))
+(array(['n', 's'], dtype=object), array([10254, 10254]))
+Vectorizing....  @ Fri Feb 25 13:14:43 2022
+DONE
+--------------------
+Working on SGDClassifier @ Fri Feb 25 13:15:04 2022
+Class: n/s Model: SGDClassifier CV: 0.6521 TEST ACC: 0.6744427076253908
+DONE
+--------------------
+Working on NaiveBayes @ Fri Feb 25 13:15:07 2022
+Class: n/s Model: NaiveBayes CV: 0.639 TEST ACC: 0.3783131711295365
+DONE
+--------------------
+(array(['f', 't'], dtype=object), array([ 61717, 114851]))
+(array(['f', 't'], dtype=object), array([61717, 61717]))
+Vectorizing....  @ Fri Feb 25 13:15:11 2022
+DONE
+--------------------
+Working on SGDClassifier @ Fri Feb 25 13:16:06 2022
+Class: t/f Model: SGDClassifier CV: 0.6991 TEST ACC: 0.7127565583797744
+DONE
+--------------------
+Working on NaiveBayes @ Fri Feb 25 13:16:31 2022
+Class: t/f Model: NaiveBayes CV: 0.6774 TEST ACC: 0.6287379366589643
+DONE
+--------------------
+(array(['j', 'p'], dtype=object), array([79610, 96958]))
+(array(['j', 'p'], dtype=object), array([79610, 79610]))
+Vectorizing....  @ Fri Feb 25 13:16:42 2022
+DONE
+--------------------
+Working on SGDClassifier @ Fri Feb 25 13:17:54 2022
+Class: p/j Model: SGDClassifier CV: 0.6349 TEST ACC: 0.6370973222781025
+DONE
+--------------------
+Working on NaiveBayes @ Fri Feb 25 13:18:30 2022
+Class: p/j Model: NaiveBayes CV: 0.6436 TEST ACC: 0.645966426532554
+DONE
+--------------------
