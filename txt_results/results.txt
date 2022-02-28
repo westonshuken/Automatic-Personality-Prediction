@@ -43,4 +43,4 @@ Other:
 Other projects:
 - Auto summarize
 - Predicitve text
-- 
+- Statistical Test (Can we find personality from text?)
