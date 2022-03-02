@@ -90,8 +90,9 @@ class run_models:
     def run_usampled(self, df, X_column, targets, models, table, tfidf=False, SEED=234819381):
         '''
         '''
+        
         for target in targets:
-            train_set, test_set = train_test_split(df, random_state=SEED)
+            train_set, test_set = train_test_split(df, random_state=SEED, stratify=df[target])
 
             X_train = train_set[X_column]
             X_train = np.array(X_train).reshape(-1, 1)
