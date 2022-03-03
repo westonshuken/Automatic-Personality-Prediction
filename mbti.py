@@ -6,9 +6,13 @@ import seaborn as sns
 import re
 import pickle
 
-from nltk.corpus import stopwords
+from nltk.corpus import stopwords, wordnet
 from nltk.tokenize import RegexpTokenizer
 from nltk.stem.wordnet import WordNetLemmatizer
+from nltk import pos_tag
+
+
+from textblob import TextBlob
 
 
 
@@ -38,10 +42,58 @@ class preprocess:
     def remove_dig_token(self, post):
         return [post[i] for i in range(len(post)) if post[i].isalpha()]
 
-    def remove_stopwords(self, post):
+    def remove_stopwords(self, post, words=None):
         sw = stopwords.words('english')
+        if words:
+            sw.extend(words)
         return [post[i] for i in range(len(post)) if post[i] not in sw]
 
+    def replace_mbti(self, post, regxx='(intp)|(intj)|(entp)|(entj)|(infj)|(infp)|(enfj)|(enfp)|(istj)|(isfj)|(estj)|(esfj)|(istp)|(isfp)|(estp)|(esfp)|(intp)'):
+        new = re.sub("r" + regxx, "", post)
+        return new
+
+    def remove_symbols(self, post):
+        encoded_string = post.encode('ascii', 'ignore')
+        deconded_string = encoded_string.decode()
+        return deconded_string
+
+    def lemmatize_text(self, tokens): 
+        lemmatizer = WordNetLemmatizer()
+        return [lemmatizer.lemmatize(w) for w in tokens]
+
+    def join_tokens(self, tokens):
+        long_string = ' '.join(tokens)
+        return long_string
+        
+    def spelling(self, posts):
+        b = TextBlob(posts)
+        return str(b.correct())
+
+    def lemmend_pos(self, tokens, pos=True):
+
+        def get_wordnet_pos(treebank_tag):
+            '''
+            Translate nltk POS to wordnet tags
+            '''
+            if treebank_tag.startswith('J'):
+                return wordnet.ADJ
+            elif treebank_tag.startswith('V'):
+                return wordnet.VERB
+            elif treebank_tag.startswith('N'):
+                return wordnet.NOUN
+            elif treebank_tag.startswith('R'):
+                return wordnet.ADV
+            elif treebank_tag:
+                return wordnet.NOUN
+        if pos == True:
+            lemmatizer = WordNetLemmatizer()
+            tagged = pos_tag(tokens)
+            tagged = [(token[0], get_wordnet_pos(token[1])) for token in tagged]
+            lemmed = [lemmatizer.lemmatize(token[0], token[1]) for token in tagged]
+        elif pos != True:
+            lemmatizer = WordNetLemmatizer()
+            lemmed = [lemmatizer.lemmatize(token) for token in tokens]
+        return lemmed
 
 class run_models:
     '''
