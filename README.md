@@ -41,4 +41,6 @@ This repository uses Python version 3.8.5
 
 The dataset can be found [Kaggle]() or in the `data` folder on the repository
 
-Using environement.yml file will allow to create the environment in which works for this repository and application deployment
+Using environement.yml file will allow to build the environment in which works for this repository and all of the notebooks
+
+The requirements.txt file is used specifically for the Heroku APP deployment
