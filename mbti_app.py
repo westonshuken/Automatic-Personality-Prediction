@@ -2,9 +2,7 @@
 import streamlit as st
 import pickle
 import pandas as pd
-import random
 import numpy as np
-import matplotlib.pyplot as plt
 
 ################################ LOADING AND FUNCTIONS ################################
 
