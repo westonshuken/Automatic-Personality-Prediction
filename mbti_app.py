@@ -10,8 +10,7 @@ import matplotlib.pyplot as plt
 
 load_model = pickle.load(open('./models/final_model.pkl', 'rb'))
 TFIDF = pickle.load(open('./models/final_tfidf.pkl', 'rb'))
-df = pd.read_csv('./data/cafe_clean.csv')
-
+df = pd.read_csv('./data/testing_df.csv')
 
 def prediction(text):
     pred = str(load_model.predict([text]))
