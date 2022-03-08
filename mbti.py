@@ -114,13 +114,13 @@ class run_models:
 
             if tfidf == True:
                 print(f'Vectorizing....  @ {time.asctime()}')
-                vc = TfidfVectorizer(ngram_range=(1,2))
+                vc = TfidfVectorizer(ngram_range=(1,2), min_df=50)
                 X_train_vc = vc.fit_transform(X_train)
                 X_test_vc = vc.transform(X_test)
                 
             else:
                 print(f'Vectorizing....  @ {time.asctime()}')
-                vc = CountVectorizer(ngram_range=(1,2))
+                vc = CountVectorizer(ngram_range=(1,2), min_df=50)
                 X_train_vc = vc.fit_transform(X_train)
                 X_test_vc = vc.transform(X_test)
 
@@ -185,13 +185,13 @@ class run_models:
 
             if tfidf == True:
                 print(f'Vectorizing....  @ {time.asctime()}')
-                vc = TfidfVectorizer(ngram_range=(1,2))
+                vc = TfidfVectorizer(ngram_range=(1,2), min_df=50)
                 X_train_vc = vc.fit_transform(X_train_rus)
                 X_test_vc = vc.transform(X_test_rus)
                 
             else:
                 print(f'Vectorizing....  @ {time.asctime()}')
-                vc = CountVectorizer(ngram_range=(1,2))
+                vc = CountVectorizer(ngram_range=(1,2), min_df=50)
                 X_train_vc = vc.fit_transform(X_train_rus)
                 X_test_vc = vc.transform(X_test_rus)
 
@@ -207,7 +207,7 @@ class run_models:
                 cv_score_mean = round(np.mean(cv_score), 4)
 
                 y_pred = models[clf].predict(X_test_vc)
-                acc_score = accuracy_score(y_pred, y_train_rus)
+                acc_score = accuracy_score(y_pred, y_test_rus)
 
                 row = pd.DataFrame({'Model': model_name + "_" + target, 'Target': target, 'CVScore': round(cv_score_mean, 4), \
                                                     'TestAcc': round(acc_score, 4)}, index=[i])
