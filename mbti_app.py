@@ -10,6 +10,8 @@ load_model = pickle.load(open('./models/final_model.pkl', 'rb'))
 TFIDF = pickle.load(open('./models/final_tfidf.pkl', 'rb'))
 df = pd.read_csv('./data/testingsample_df.csv')
 
+@st.cache()
+
 def prediction(text):
     pred = str(load_model.predict([text]))
     return pred
