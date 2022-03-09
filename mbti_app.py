@@ -84,7 +84,7 @@ if show_sentiment:
                 color='Personality',
                 text_auto=True,
                 title = 'Pesonality Type Likelihood Graph')
-        tfidf_scores = tfidf_top(text_input)
+        st.plotly_chart(fig,  use_container_width=True)
         tfidf_scores = tfidf_top(text_input)
         st.markdown("###### According to Myers-Briggs: When you make a decision, you like to find the basic truth or principle to be applied, regardless of the specific situation involved. You like to analyze pros and cons, and then be consistent and logical in deciding. You try not to be impersonal, so you won't let my personal wishes--or other people's wishes--influence me.")
         st.write("These terms from your response provide the most weight in determining your personality type \n", tfidf_scores)
@@ -156,6 +156,7 @@ if generate:
                 color='Personality',
                 text_auto=True,
                 title = 'Pesonality Type Likelihood Graph')
+        st.plotly_chart(fig,  use_container_width=True)
         tfidf_scores_g = tfidf_top(random_text)
         st.write("These terms from the response provide the most weight in determining the personality type \n", tfidf_scores_g)
 
