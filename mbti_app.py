@@ -1,8 +1,12 @@
 ###################### IMPORTS ################################
+from matplotlib.pyplot import stackplot
 import streamlit as st
 import pickle
 import pandas as pd
 import numpy as np
+import plotly.express as px
+import time
+
 
 ################################ LOADING AND FUNCTIONS ################################
 
@@ -17,10 +21,10 @@ def prediction(text):
     return pred
 
 def likelihood(text):
-    likelihood = str(round(max(load_model.predict_proba([text])[0])*100, 2))
+    likelihood = round(max(load_model.predict_proba([text])[0])*100, 2)
     return likelihood
 
-def tfidf_top(text, n=5):
+def tfidf_top(text, n=10):
     feature_array = np.array(TFIDF.get_feature_names())
     response = TFIDF.transform([text])
     tfidf_sorting = np.argsort(response.toarray()).flatten()[::-1]
@@ -34,137 +38,188 @@ st.markdown("# Automatic Personality Predictor")
 
 st.markdown("### Type or paste some text... anything")
 text_input = st.text_area('')
-show_sentiment = st.button('Send')
+show_sentiment = st.button('Predict')
 
-with st.spinner('Wait for it... '):
 
-    if show_sentiment:
-        sentiment = prediction(text_input)
-        lhood = likelihood(text_input)
-        html_img = '<iframe src="https://giphy.com/embed/9Sc3xiTns7y8w" width="480" height="247" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/harry-potter-mys-hp-9Sc3xiTns7y8w">via GIPHY</a></p>'
-        st.markdown(html_img, unsafe_allow_html=True)
-        st.markdown('### Our magic hat predictor says...')
-        
-        if sentiment == "['f']":
-            st.markdown('#### You have a *feeling* personality')
-            html_str = f"""<style>p.a {{font: bold 24px Courier;}}</style><p class="a">{lhood}% probabilty this is correct</p>"""
-            st.markdown(html_str, unsafe_allow_html=True)
-            tfidf_scores = tfidf_top(text_input)
-            st.markdown("###### According to Myers-Briggs: You believe you can make the best decisions by weighing what people care about and the points-of-view of persons involved in a situation. You are concerned with values and what is the best for the people involved. You like to do whatever will establish or maintain harmony. In your relationships, you appear caring, warm, and tactful.")
-            st.write("These terms from your response provide the most weight in determining your personality type \n", tfidf_scores)
-        elif sentiment == "['t']":
-            st.markdown('#### You have a *thinking* personality')
-            html_str = f"""<style>p.a {{font: bold 24px Courier;}}</style><p class="a">{lhood}% probabilty this is correct</p>"""
-            st.markdown(html_str, unsafe_allow_html=True)
-            tfidf_scores = tfidf_top(text_input)
-            st.markdown("###### According to Myers-Briggs: When you make a decision, you like to find the basic truth or principle to be applied, regardless of the specific situation involved. You like to analyze pros and cons, and then be consistent and logical in deciding. You try not to be impersonal, so you won't let my personal wishes--or other people's wishes--influence me.")
-            st.write("These terms from your response provide the most weight in determining your personality type \n", tfidf_scores)
+# with st.spinner('Wait for it... '):
+
+if show_sentiment:
+    my_bar = st.progress(0)
+    sentiment = prediction(text_input)
+    lhood = likelihood(text_input)
+    # st.markdown('### Our magic sorting hat says...')
+    # html_img = '<iframe src="https://giphy.com/embed/9Sc3xiTns7y8w" width="480" height="247" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/harry-potter-mys-hp-9Sc3xiTns7y8w">via GIPHY</a></p>'
+    # st.markdown(html_img, unsafe_allow_html=True)
+    for percent_complete in range(100):
+        time.sleep(.01)
+        my_bar.progress(percent_complete + 1)
+    if sentiment == "['f']":
+        st.markdown('#### You have a *feeling* personality')
+        lhood_str = str(lhood)
+        html_str = f"""<style>p.a {{font: bold 24px Courier;}}</style><p class="a">{lhood_str}% probabilty this is correct</p>"""
+        st.markdown(html_str, unsafe_allow_html=True)
+        # Bar Graph
+        dict = {'Personality': ['FEELING', 'THINKING'], 'Liklihood (%)': [lhood,100-lhood]}
+        df_bar = pd.DataFrame(dict, index=[0,1])
+        fig = px.bar(df_bar, 
+                x = 'Personality',
+                y = 'Liklihood (%)',
+                color='Personality',
+                text_auto=True,
+                title = 'Pesonality Type Likelihood Graph')
+        st.plotly_chart(fig,  use_container_width=True)
+        tfidf_scores = tfidf_top(text_input)
+        st.markdown("###### According to Myers-Briggs: You believe you can make the best decisions by weighing what people care about and the points-of-view of persons involved in a situation. You are concerned with values and what is the best for the people involved. You like to do whatever will establish or maintain harmony. In your relationships, you appear caring, warm, and tactful.")
+        st.write("These terms from your response provide the most weight in determining your personality type \n", tfidf_scores)
+    elif sentiment == "['t']":
+        st.markdown('#### You have a *thinking* personality')
+        lhood_str = str(lhood)
+        html_str = f"""<style>p.a {{font: bold 24px Courier;}}</style><p class="a">{lhood_str}% probabilty this is correct</p>"""
+        st.markdown(html_str, unsafe_allow_html=True)
+        # Bar Graph
+        dict = {'Personality': ['FEELING', 'THINKING'], 'Liklihood (%)': [100-lhood,lhood]}
+        df_bar = pd.DataFrame(dict, index=[0,1])
+        fig = px.bar(df_bar, 
+                x = 'Personality',
+                y = 'Liklihood (%)',
+                color='Personality',
+                text_auto=True,
+                title = 'Pesonality Type Likelihood Graph')
+        tfidf_scores = tfidf_top(text_input)
+        tfidf_scores = tfidf_top(text_input)
+        st.markdown("###### According to Myers-Briggs: When you make a decision, you like to find the basic truth or principle to be applied, regardless of the specific situation involved. You like to analyze pros and cons, and then be consistent and logical in deciding. You try not to be impersonal, so you won't let my personal wishes--or other people's wishes--influence me.")
+        st.write("These terms from your response provide the most weight in determining your personality type \n", tfidf_scores)
 
 ################################ GENERATE RANDOM POSTS ################################
-st.markdown("---")
-st.markdown("## Generate Text")
 
-st.markdown("The below generator will generate a \
-    collection of 50 user posts on a forum-based website [Personality Cafe](personalitycafe.com).")
-
-st.markdown("Based on the text, machine laerning model will make prediction based of thinking vs. feeling personlity trait.")
-
-slider_n = st.slider('Choose how many of the top words to show (by TFIDF)', 1, 30, step=1)
-st.markdown("**Disclaimer**: *posts are from the internet... so they can be offesive.*")
-
-rand_post = st.button('Generate')
-
-with st.spinner('Wait for it...'):
+st.markdown("### I'd rather generate text")
+generate = st.button('Generate')
 
 
-    if rand_post:
-        rint = np.random.randint(0, len(df))
+# with st.spinner('Wait for it...'):
 
-        random_text = df['joined_tokens'].iloc[rint]
-        sentiment = prediction(random_text)
-        lhood = likelihood(random_text)
-        tfidf_scores = tfidf_top(random_text, n=slider_n)
+if generate:
+    my_bar2 = st.progress(0)
+
+    st.markdown("Generating a \
+    collection of 50 user posts from the forum-based website [Personality Cafe](https://www.personalitycafe.com/).")
+
+    st.markdown("Based on the text, the machine learning model will make prediction based of *Thinking* vs. *Feeling* personlity trait.")
+
+    # slider_n = st.slider('Choose how many of the top words to show (by TFIDF)', 1, 30, step=1)
+    st.markdown("**Disclaimer**: *posts are from the internet... so they can be offesive.*")
+    rint = np.random.randint(0, len(df))
+
+    st.markdown("#### Posts Snippet:")
+    post_string = str(df['posts'].iloc[rint])
+    st.write(post_string[:150])
+
+    st.write("#### Cleaned Posts Snippet:")
+    post_string = str(df['joined_tokens'].iloc[rint])
+    st.write(post_string[:100])
 
 
+    random_text = df['joined_tokens'].iloc[rint]
+    sentiment_g = prediction(random_text)
+    lhood_g = likelihood(random_text)
+    tfidf_scores_g = tfidf_top(random_text, n=10)
 
-        if sentiment == "['f']":
-            st.markdown('##### *feeling type*')
-            html_str = f"""<style>p.a {{font: bold 24px Courier;}}</style><p class="a">{lhood}% probabilty this is correct</p>"""
-            st.markdown(html_str, unsafe_allow_html=True)
-            st.write("These terms from your response provide the most weight in determining your personality type \n", tfidf_scores)
-        elif sentiment == "['t']":
-            st.markdown('##### *thinking type*')
-            html_str = f"""<style>p.a {{font: bold 24px Courier;}}</style><p class="a">{lhood}% probabilty this is correct</p>"""
-            st.markdown(html_str, unsafe_allow_html=True)
-            st.write("These terms from the response provide the most weight in determining the personality type \n", tfidf_scores)
+    for percent_complete in range(100):
+        time.sleep(.01)
+        my_bar2.progress(percent_complete + 1)
 
-        st.markdown("#### Posts Snippet:")
-        post_string = str(df['posts'].iloc[rint])
-        st.write(post_string[:150])
+    if sentiment_g == "['f']":
+        st.markdown('##### *feeling type*')
+        html_str = f"""<style>p.a {{font: bold 24px Courier;}}</style><p class="a">{lhood_g}% probabilty this is correct</p>"""
+        st.markdown(html_str, unsafe_allow_html=True)
+        # Bar Graph
+        dict = {'Personality': ['FEELING', 'THINKING'], 'Liklihood (%)': [lhood_g,100-lhood_g]}
+        df_bar = pd.DataFrame(dict, index=[0,1])
+        fig = px.bar(df_bar, 
+                x = 'Personality',
+                y = 'Liklihood (%)',
+                color='Personality',
+                text_auto=True,
+                title = 'Pesonality Type Likelihood Graph')
+        st.plotly_chart(fig,  use_container_width=True)
+        tfidf_scores_g = tfidf_top(random_text)
+        st.write("These terms from your response provide the most weight in determining your personality type \n", tfidf_scores_g)
+    elif sentiment_g == "['t']":
+        st.markdown('##### *thinking type*')
+        html_str = f"""<style>p.a {{font: bold 24px Courier;}}</style><p class="a">{lhood_g}% probabilty this is correct</p>"""
+        st.markdown(html_str, unsafe_allow_html=True)
+        # Bar Graph
+        dict = {'Personality': ['FEELING', 'THINKING'], 'Liklihood (%)': [100-lhood_g,lhood_g]}
+        df_bar = pd.DataFrame(dict, index=[0,1])
+        fig = px.bar(df_bar, 
+                x = 'Personality',
+                y = 'Liklihood (%)',
+                color='Personality',
+                text_auto=True,
+                title = 'Pesonality Type Likelihood Graph')
+        tfidf_scores_g = tfidf_top(random_text)
+        st.write("These terms from the response provide the most weight in determining the personality type \n", tfidf_scores_g)
 
-        st.write("#### Cleaned Posts Snippet:")
-        post_string = str(df['joined_tokens'].iloc[rint])
-        st.write(post_string[:100])
 
-        with st.expander("See Full Posts"):
-            st.write("ORIGINAL POST:")
-            st.write(df['posts'].iloc[rint])
-            
-            st.write("CLEANED POST:")
-            st.write(df['joined_tokens'].iloc[rint])
+    with st.expander("See Full Posts"):
+        st.write("ORIGINAL POST:")
+        st.write(df['posts'].iloc[rint])
+        
+        st.write("CLEANED POST:")
+        st.write(df['joined_tokens'].iloc[rint])
 
 ################################ MORE INFO ################################
 
 st.markdown("---")
 
-pressed = st.button('Press if you want to learn more')
+st.markdown("### Learn More")
 
 
-if pressed:
-
-    with st.expander('Project Overview'):
-        st.markdown("""
-    # Myers-Briggs Type Indicator Prediction
-    #### By Weston Shuken
-
-    The purpose of this project is to use machine learning algorithms to precict the personality type of a person given their written text in English. 
-    The personality type predictions are based on the Myers-Briggs Type Indicator (MBTI) test as the target variable. 
-    The features or predictor variables are comments and posts from userson [PersonalityCafe](https://www.personalitycafe.com/). 
-    These posts and comments come from users who have explicitley labeled their MBTI personality on their profile. 
-
-    The Myers-Briggs test is a very popular test that ask users approximately 90 questions about their behavior and assigns the user a type of personality based on this assessment. 
-    This test takes around 20-30 for someone to complete. 
-
-    There are 16 different personality types using a combination of 8 overall traits. See below:
-
-        Introversion (I) vs Extroversion (E)
-        Intuition (N) vs Sensing (S)
-        Thinking (T) vs Feeling (F)
-        Judging (J) vs Perceiving (P)
 
 
-    The page on the right provides a journey to the user, where they can either join a non-technical safari  
-    ride throught the project, or they can join a techincal, more extensive, look at how the machine learning models perform. 
+with st.expander('Project Overview'):
+    st.markdown("""
+# Myers-Briggs Type Indicator Prediction
+#### By Weston Shuken
+
+The purpose of this project is to use machine learning algorithms to precict the personality type of a person given their written text in English. 
+The personality type predictions are based on the Myers-Briggs Type Indicator (MBTI) test as the target variable. 
+The features or predictor variables are comments and posts from userson [PersonalityCafe](https://www.personalitycafe.com/). 
+These posts and comments come from users who have explicitley labeled their MBTI personality on their profile. 
+
+The Myers-Briggs test is a very popular test that ask users approximately 90 questions about their behavior and assigns the user a type of personality based on this assessment. 
+This test takes around 20-30 for someone to complete. 
+
+There are 16 different personality types using a combination of 8 overall traits. See below:
+
+    Introversion (I) vs Extroversion (E)
+    Intuition (N) vs Sensing (S)
+    Thinking (T) vs Feeling (F)
+    Judging (J) vs Perceiving (P)
 
 
-    """)
+The page on the right provides a journey to the user, where they can either join a non-technical safari  
+ride throught the project, or they can join a techincal, more extensive, look at how the machine learning models perform. 
 
-    
-    with st.expander("Why does this matter?"):
-        st.write('nice')
 
-    with st.expander("What kind of model is being used?"):
-        st.write('nice') 
+""")
 
-    with st.expander("What is TF-IDF"):
-        st.write('nice')
 
-    with st.expander("Still want to see more?"):
-        st.write('Check out my [Github](https://github.com/westonshuken/personality-prediction) \
-            and feel free to connect with me over [LinkedIn](https://www.linkedin.com/in/westonshuken/).') 
+with st.expander("Why does this matter?"):
+    st.write('nice')
 
-    with st.expander("Seeing some issues or have a comment?"):
-        st.text_area('Please do let me know!')
+with st.expander("What kind of model is being used?"):
+    st.write('nice') 
+
+with st.expander("What is TF-IDF"):
+    st.write('nice')
+
+with st.expander("Still want to see more?"):
+    st.write('Check out my [Github](https://github.com/westonshuken/personality-prediction) \
+        and feel free to connect with me over [LinkedIn](https://www.linkedin.com/in/westonshuken/).') 
+
+with st.expander("Seeing some issues or have a comment?"):
+    st.text_area('Please do let me know!')
 
 
 
