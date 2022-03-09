@@ -1,5 +1,4 @@
 ###################### IMPORTS ################################
-from matplotlib.pyplot import stackplot
 import streamlit as st
 import pickle
 import pandas as pd
