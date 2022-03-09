@@ -63,11 +63,34 @@ Machine Learnging Models:
 
 ## Understanding the Dataset
 
+The dataset has many pitfalls that will affect our modeling, and have dramatically affected the accuracy results to be overinflated and underpromising.
+
+1. Sample vs. Population Distributions
+
+2. Class Imbalance - 
+
+3. Messy text data - the posts include metions about the MBTI types which can be a proxy for the actual MBIT target label
+
+4. Not enough data - certain forums might be discussing certain topics which can be a proxy for the personality type as opposed to a causation. 
+
 ## Modeling
 
 ## Results
 
 ## Online Web App
+
+I deployed an online application to showcase the model in action. 
+
+The application will predict user personality as either *THINKING* or *FEEELING* based on user text input. 
+The app will return a bar chart of personality probabilites and top word weights by TF-IDF scores. 
+
+The application will also 50 posts from a user to run throught the model with the same output results. 
+
+![App-Screenshot](https://share.streamlit.io/westonshuken/personality-prediction/main/mbti_app.py)
+
+*The purpose of this is to inspect which words might be used to make predictions.*
+
+You can try the app [HERE](https://share.streamlit.io/westonshuken/personality-prediction/main/mbti_app.py).
 
 ## Applications of the Predictive Model
 
@@ -87,8 +110,20 @@ There are numerous applications for using this personality predictive model:
 
 This repository uses Python version 3.8.5
 
-The dataset can be found [Kaggle]() or in the `data` folder on the repository
+The dataset can be found [Kaggle](https://www.kaggle.com/datasnaek/mbti-type) or in the `data` folder on the repository
 
 Using environement.yml file will allow to build the environment in which works for this repository and all of the notebooks
 
 The requirements.txt file is used specifically for the Heroku APP deployment
+
+**Repository Structure:**
+```
+├── data preprocessing                     <- Team Member's individual notebooks 
+├── data                                   <- Both sourced externally and generated from code 
+├── images                                 <- Both sourced externally and generated from code 
+├── .gitignore                             <- gitignore 
+├── GridSearch.ipynb                       <- Supplementary documentation of gridsesarching optimal parameters
+├── GridSearchSMOTE.ipynb                  <- Supplementary documentation of gridsesarching optimal parameters using SMOTE
+├── README.md                              <- The top-level README for reviewers of this project
+├── index.ipynb                            <- Narrative documentation of analysis in Jupyter notebook
+└── presentation.pdf                       <- PDF version of project presentation
