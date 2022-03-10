@@ -97,14 +97,19 @@ The dataset has many pitfalls that will affect our modeling, and have dramatical
 
 1. Sample vs. Population Distributions
 
+#### Class Sample vs Population Bar 
 ![sample_population](./images/sample_population.png)
+#### Binary Sample vs Population Bar 
 ![sample_population_binary](./images/sample_population_binary.png)
 
 
 2. Class Imbalance - The classes on the dataset are imbalanced by total 16 personality types and by the binary classes
 
+
+#### Binary Imbalance Bar
 ![binary_imbalance](./images/binary_imbalance.png)
 
+#### Class Imbalance Bar
 ![class_imbalance](./images/class_imbalance.png)
 
 3. Messy text data - the posts include many symobls, punctuation, and common words. Also, some posts mention the MBTI types which can be a proxy for the actual MBIT target label. Through preprocessing methods this can be fixed.
@@ -117,6 +122,7 @@ The dataset has many pitfalls that will affect our modeling, and have dramatical
 
 `seem alot family lol know feel dad way think im practical enough never get thing do way want do difficult person world feel hard deal talk like youre year old even age bossy mean narcissistic good`
 
+#### Cleaned vs. Pre-cleaned Post Word Length
 ![Histogram](./images/histogram.png)
 
 4. Not enough data - certain forums might be discussing certain topics which can be a proxy for the personality type as opposed to a causation. 
@@ -127,21 +133,23 @@ The dataset has many pitfalls that will affect our modeling, and have dramatical
 We see an increase from 21% baseline of prediction the majority class to a 37% accuracy of an SGD classifier w/ TF-IDF vectorization. 
 While not an objectively high accuracy score, the models are gaining information in some form or another.
 
+#### Multiclass Modeling Accuracy Results
 ![Multiclass Modeling](./images/multiclass_models.png)
 
 Instantly we can see an increase in accuracy across the board using simple Logistic Regression and TF-IDF vectorization.
 
-
+#### Binary Modeling Accuracy Results
 ![Binary Modeling](./images/binary.png)
 
 However, the class is imbalanced. so really only 
 
+#### Binary Modeling Accuracy Results vs. Majority Class Balance
 ![Binary Balance](./images/binary_balance.png)
 
 #### Thinking vs. Feeling
 the Thinking vs. Feeling traits are providing a significant gain in accuracy score over the imbalance. Meaning that the model is mainly able to capture the differences in users' online text behavior and word choice by the Thinking vs Feeling traits. B
 
-## Results
+## Final Model Results & Evaluation
 
 #### Final Model:
 - TF-IDF Vectorizer
@@ -154,6 +162,10 @@ the Thinking vs. Feeling traits are providing a significant gain in accuracy sco
 - 80% F-1 Score
 
 <img src="./images/confusion_matrix.png" alt="cmatrix" style="width:450;"/>
+
+#### Some of the Top Words by Class and TF-IDF
+
+<img src="./images/TF_IDF.png" alt="TF_IDF" style="width:650;"/>
 
 ## Online Web App
 
@@ -172,14 +184,6 @@ The application will also generate 50 posts to run through the model.
 *The purpose of this is to inspect which words (dependent on TF-IDF weight) might be used to make predictions.*
 
 You can try the app [HERE](https://share.streamlit.io/westonshuken/personality-prediction/main/personality_predictor.py).
-
-## Applications of the Predictive Model
-
-There are numerous applications for using this personality predictive model:
-
-- Customer Segmentation
-- Digital Advertising 
-- Research
 
 ## Conclusion
 
@@ -204,15 +208,23 @@ There are many cutting edge, advanced techniques for finding contextual and sema
 - [ ] BERT
 - [ ] XLNet
 
+## Final Thoughts 
+
+
+
 ## Reproducability 
 
 This repository uses Python version 3.8.5
 
-The dataset can be found [Kaggle](https://www.kaggle.com/datasnaek/mbti-type) or in the `data` folder on the repository.
+The dataset can be found on [Kaggle](https://www.kaggle.com/datasnaek/mbti-type) or in the `data` folder on the repository.
 
 Using environement.yml file will allow to build the environment in which works for this repository and all of the notebooks.
 
 The requirements.txt file is used specifically for the Streamlit APP deployment via Streamlit.
+
+#### For more information
+Please contact the contributors to this analysis: 
+[Weston Shuken](https://www.linkedin.com/in/westonshuken/)
 
 **Repository Structure:**
 ```
