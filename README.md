@@ -1,9 +1,7 @@
 # Automatic Personality Prediction
+<center><img src="https://github.com/westonshuken/personality-prediction/blob/main/images/header.png" alt="drawing" style="width:200px;"/></center>
 
 #### by Weston Shuken
-
-
-![opening-image]()
 
 ---
 
@@ -15,15 +13,15 @@ The purpose of this project is use automatic persnoality detection using text da
 
 ## Opportunities
 
-![Opp](./data/opp.png)
+![Opp](./images/opp.png)
 
 There are some great opportunities that stem from this project and research:
 
-1) Verifying validity in Myers-Briggs abilitity to segment on behavior, given the MBTI is often criticized for being unreliable (). (Kerwin, P.L., 2017).([Download Research Paper] (https://www.psychometrics.com/wp-content/uploads/2018/06/Creating-Clarity-Addressing-Micsconceptions-About-the-MBTI-Assessment-WhitePaper-1.pdf))
+1) Verifying validity in Myers-Briggs abilitity to segment on behavior, given the MBTI is often criticized for being unreliable (). (Kerwin, P.L., 2017). [[Download Research Paper](https://www.psychometrics.com/wp-content/uploads/2018/06/Creating-Clarity-Addressing-Micsconceptions-About-the-MBTI-Assessment-WhitePaper-1.pdf)]
 
-2) Classifying online behavior. Text-rich platforms like social media, blogs, and forums can use implicit data to segment their customers. This segmentation is a common use of automatic personality detection, which can be used for "advertisements alignment, marketing campaigns adjustment, and supporting bloggers in narrowing down their target audiences based on community pre-detected personality traits" (Tareaf, Berger, et. al, 2018). ([Download Reaserch Paper](https://arxiv.org/pdf/1812.04346))
+2) Classifying online behavior. Text-rich platforms like social media, blogs, and forums can use implicit data to segment their customers. This segmentation is a common use of automatic personality detection, which can be used for "advertisements alignment, marketing campaigns adjustment, and supporting bloggers in narrowing down their target audiences based on community pre-detected personality traits" (Tareaf, Berger, et. al, 2018). [[Download Reaserch Paper](https://arxiv.org/pdf/1812.04346)]
 
-3) The ability for speed and quantity of classification using automated prediction allows for bypassing questionnaire strategies. If accurate enough, populations of people and their personalities/online behavoirs could be better understood. This would add a drop in the ocean of knowledge in this widely researched topic ( Sharmaa, E., Mahajanb R., & Mansotrad, V., 2021). ([Download Research Paper](https://www.researchgate.net/publication/356603183_Automated_Personality_Prediction_of_Social_Media_Users_A_Decade_Review))
+3) The ability for speed and quantity of classification using automated prediction allows for bypassing questionnaire strategies. If accurate enough, populations of people and their personalities/online behavoirs could be better understood. This would add a drop in the ocean of knowledge in this widely researched topic ( Sharmaa, E., Mahajanb R., & Mansotrad, V., 2021). [[Download Research Paper](https://www.researchgate.net/publication/356603183_Automated_Personality_Prediction_of_Social_Media_Users_A_Decade_Review)]
 
 
 ## Data and Methods
@@ -85,19 +83,24 @@ The dataset has many pitfalls that will affect our modeling, and have dramatical
 
 ## Modeling
 
-![Multiclass Modeling]
+![Multiclass Modeling](./images/multiclass_models.png)
 
-![Binary Modeling]
+![Binary Modeling](./images/binary.png)
+
+![Binary Balance](./images/binary_balance.png)
 
 ![Final Model]
 
 ## Results
 
+<img src="./images/classification_report.png" alt="drawing" style="width:250;"/>
+
+<img src="./images/confusion_matrix.png" alt="drawing" style="width:450;"/>
+
+
 ### Thinking vs. Feeling
 
-![Summary Report]()
 
-![Confusion Matrix]()
 
 ## Online Web App
 
@@ -108,11 +111,14 @@ The app will return a bar chart of personality probabilites and top word weights
 
 The application will also 50 posts from a user to run throught the model with the same output results. 
 
-![App-Screenshot](https://share.streamlit.io/westonshuken/personality-prediction/main/mbti_app.py)
+![App-Screenshot1](images/app1.png)
+![App-Screenshot2](images/app2.png)
+![App-Screenshot3](images/app3.png)
 
-*The purpose of this is to inspect which words might be used to make predictions.*
 
-You can try the app [HERE](https://share.streamlit.io/westonshuken/personality-prediction/main/mbti_app.py).
+*The purpose of this is to inspect which words (dependent on TF-IDF weight) might be used to make predictions.*
+
+You can try the app [HERE](https://share.streamlit.io/westonshuken/personality-prediction/main/personality_predictor.py).
 
 ## Applications of the Predictive Model
 
