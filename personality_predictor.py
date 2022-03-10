@@ -32,6 +32,7 @@ def tfidf_top(text, n=10):
     return list(top_n)
 
 ################################ INTRO / USER PREDICTION ################################
+st.image('./images/header.png')
 
 st.markdown("# Automatic Personality Predictor")
 
@@ -119,6 +120,7 @@ if generate:
 
 
     random_text = df['joined_tokens'].iloc[rint]
+    actual_type = df['type'].iloc[rint]
     sentiment_g = prediction(random_text)
     lhood_g = likelihood(random_text)
     tfidf_scores_g = tfidf_top(random_text, n=10)
@@ -129,6 +131,7 @@ if generate:
 
     if sentiment_g == "['f']":
         st.markdown('##### *feeling type*')
+        st.markdown("Actual MBTI: ",str(actual_type))
         html_str = f"""<style>p.a {{font: bold 24px Courier;}}</style><p class="a">{lhood_g}% probabilty this is correct</p>"""
         st.markdown(html_str, unsafe_allow_html=True)
         # Bar Graph
@@ -145,6 +148,7 @@ if generate:
         st.write("These terms from your response provide the most weight in determining your personality type \n", tfidf_scores_g)
     elif sentiment_g == "['t']":
         st.markdown('##### *thinking type*')
+        st.markdown("Actual MBTI: ",str(actual_type))
         html_str = f"""<style>p.a {{font: bold 24px Courier;}}</style><p class="a">{lhood_g}% probabilty this is correct</p>"""
         st.markdown(html_str, unsafe_allow_html=True)
         # Bar Graph
@@ -179,12 +183,19 @@ st.markdown("### Learn More")
 
 with st.expander('Project Overview'):
     st.markdown("""
-# Myers-Briggs Type Indicator Prediction
+# Automatic Personality Prediction
 #### By Weston Shuken
+---
+Automatic personality detection is the automated forecasting of a personality using human-generated or exchanged contents:
+
+- text
+- speech
+- videos
+- images
 
 The purpose of this project is to use machine learning algorithms to precict the personality type of a person given their written text in English. 
 The personality type predictions are based on the Myers-Briggs Type Indicator (MBTI) test as the target variable. 
-The features or predictor variables are comments and posts from userson [PersonalityCafe](https://www.personalitycafe.com/). 
+The features or predictor variables are comments and posts from users on [PersonalityCafe](https://www.personalitycafe.com/). 
 These posts and comments come from users who have explicitley labeled their MBTI personality on their profile. 
 
 The Myers-Briggs test is a very popular test that ask users approximately 90 questions about their behavior and assigns the user a type of personality based on this assessment. 
@@ -197,22 +208,19 @@ There are 16 different personality types using a combination of 8 overall traits
     Thinking (T) vs Feeling (F)
     Judging (J) vs Perceiving (P)
 
-
-The page on the right provides a journey to the user, where they can either join a non-technical safari  
-ride throught the project, or they can join a techincal, more extensive, look at how the machine learning models perform. 
-
+*If you are unfamilar with the MBTI, please visit [Myers-Briggs Type Indicator](https://www.myersbriggs.org/my-mbti-personality-type/mbti-basics/) for more info*
 
 """)
 
 
-with st.expander("Why does this matter?"):
-    st.write('nice')
+# with st.expander("Why does this matter?"):
+#     st.write('This mattesr b')
 
 with st.expander("What kind of model is being used?"):
-    st.write('nice') 
+    st.write('Stochastic Gradient Descent Linear Classifier ([Sk-learn](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDClassifier.html)') 
 
-with st.expander("What is TF-IDF"):
-    st.write('nice')
+# with st.expander("What is TF-IDF"):
+#     st.write('nice')
 
 with st.expander("Still want to see more?"):
     st.write('Check out my [Github](https://github.com/westonshuken/personality-prediction) \
@@ -222,45 +230,3 @@ with st.expander("Seeing some issues or have a comment?"):
     st.text_area('Please do let me know!')
 
 
-
-
-
-# """
-
-# MAIN (full journey or test prediction tool)
-
-# Can personality type be predicted based on word choice, text style, and online commenting behavior?
-# Yes/No
-
-# USER PREDICTION TYPE BOX --> return personality, likelihood, & TFIDF top words
-
-# There is a popular dataset on Kaggle, called (MBTI) "Myers-Briggs Personality Type Dataset", which 
-# includes a large number of people's MBTI type and content written by them on the website Personality Cafe.
-# There are dozens of projects which use this dataset to predict MBTI personality traits, however, I was a bit skeptical to believe that this was really achievable. Below are my objective and neutral results on the possibility of this really working. 
-
-# DATA INSIGHT:
-
-# Collections of 50 posts per user of over 8,600 users on Personality Cafe forums. There appear to be no particular subjects or topics overweighting the data, but rather just online chatter.
-
-# BUTTON (generate a random collection of a user's posts)
-
-# DATA CLEANING:
-# As you can tell, the posts have a lot of noise and information that is not useful. Using python libraries (pandas, NLTK, textblob), I removed pipe separators, mentions of MBTI type (data leakage), stopwords (common words without much meaning), URLs, symbols, non-ASCII characters, & digits. I also lemmatized the words (e.g. birds --> bird; walked --> walk).
-
-# BUTTON (view cleaned posts)
-
-# SHOW(graphs of 
-
-# ---------------------------------
-
-# SIDEBAR
-
-# The purpose of this project
-
-# Contact information
-
-# Github Repository
-
-
-
-# """
