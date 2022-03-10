@@ -14,6 +14,7 @@ Automatic personality detection is the automated forecasting of a personality us
 - videos
 - images
 
+The purpose of this project is to use machine learning algorithms to precict the personality type of a person given their written text in English. 
 
 ## Opportunities
 
@@ -21,9 +22,9 @@ Automatic personality detection is the automated forecasting of a personality us
 
 There are great opportunities that stem from this project and research:
 
-1) Verifying validity in Myers-Briggs abilitity to segment on behavior, given the MBTI is often criticized for being unreliable (). (Kerwin, P.L., 2017). [[Download Research Paper](https://www.psychometrics.com/wp-content/uploads/2018/06/Creating-Clarity-Addressing-Micsconceptions-About-the-MBTI-Assessment-WhitePaper-1.pdf)]
+1) Verifying validity in Myers-Briggs abilitity to segment on behavior, given the MBTI is often criticized for being unreliable. (Kerwin, P.L., 2017). [[Download Research Paper](https://www.psychometrics.com/wp-content/uploads/2018/06/Creating-Clarity-Addressing-Micsconceptions-About-the-MBTI-Assessment-WhitePaper-1.pdf)]
 
-2) Classifying online behavior. Text-rich platforms like social media, blogs, and forums can use implicit data to segment their customers. This segmentation is a common use of automatic personality detection, which can be used for "advertisements alignment, marketing campaigns adjustment, and supporting bloggers in narrowing down their target audiences based on community pre-detected personality traits" (Tareaf, Berger, et. al, 2018). [[Download Reaserch Paper](https://arxiv.org/pdf/1812.04346)]
+2) Using implicit text data to classify online behavior of users on text-rich platforms like social media, blogs, and forums. This segmentation is a common use of automatic personality detection, which can be used for "advertisements alignment, marketing campaigns adjustment, and supporting bloggers in narrowing down their target audiences based on community pre-detected personality traits" (Tareaf, Berger, et. al, 2018). [[Download Reaserch Paper](https://arxiv.org/pdf/1812.04346)]
 
 3) The ability for speed and quantity of classification using automated prediction allows for bypassing questionnaire strategies. If accurate enough, populations of people and their personalities/online behavoirs could be better understood. This would add a drop in the ocean of knowledge in this widely researched topic ( Sharmaa, E., Mahajanb R., & Mansotrad, V., 2021). [[Download Research Paper](https://www.researchgate.net/publication/356603183_Automated_Personality_Prediction_of_Social_Media_Users_A_Decade_Review)]
 
@@ -208,10 +209,6 @@ There are many cutting edge, advanced techniques for finding contextual and sema
 - [ ] BERT
 - [ ] XLNet
 
-## Final Thoughts 
-
-
-
 ## Reproducability 
 
 This repository uses Python version 3.8.5
@@ -230,13 +227,18 @@ Please contact the contributors to this analysis:
 ```
 ├── .streamlit                             <- Contains config.toml file for Streamlit App theme
 ├── data                                   <- Both sourced externally and generated from code 
+├── environment                            <- Contains yml file
 ├── images                                 <- Both sourced externally and generated from code 
 ├── models                                 <- Contains pickled models for the Streamlit App
 ├── working_notebooks                      <- Work-in-progress & EDA notebooks
+├── .gitattributes                         <- For LFS (large files)
 ├── .gitignore                             <- For a clean repository
 ├── .gitattributes                         <- For LFS (large files)
-├── nlp.py                                 <- Custom class for text preprocessing and running ML models
-├── reddit_sample.ipynb                    <- Jupyter notebook of unseen Reddit testing data sampling 
 ├── README.md                              <- The top-level README for reviewers of this project
 ├── index.ipynb                            <- Narrative documentation of analysis in Jupyter notebook
-└── presentation.pdf                       <- PDF version of project presentation
+├── nlp.py                                 <- Custom class for text preprocessing and running ML models
+├── personality_predictor.py               <- Python file for the APP
+├── presentationslides.pdf                 <- PDF version of project presentation
+├── reddit_sample.ipynb                    <- Jupyter notebook of unseen Reddit testing data sampling 
+├── requirements.txt                       <- Dependencies for the APP deployment 
+└── setup.sh                               <- Shell file for APP deployment
