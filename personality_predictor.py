@@ -32,7 +32,7 @@ def tfidf_top(text, n=10):
     return list(top_n)
 
 ################################ INTRO / USER PREDICTION ################################
-st.image('./images/header.png')
+# st.image('./images/header.png', width=100)
 
 st.markdown("# Automatic Personality Predictor")
 
@@ -131,7 +131,7 @@ if generate:
 
     if sentiment_g == "['f']":
         st.markdown('##### *feeling type*')
-        st.markdown("Actual MBTI: ",str(actual_type))
+        st.write("Actual MBTI: ",actual_type.upper())
         html_str = f"""<style>p.a {{font: bold 24px Courier;}}</style><p class="a">{lhood_g}% probabilty this is correct</p>"""
         st.markdown(html_str, unsafe_allow_html=True)
         # Bar Graph
@@ -148,7 +148,7 @@ if generate:
         st.write("These terms from your response provide the most weight in determining your personality type \n", tfidf_scores_g)
     elif sentiment_g == "['t']":
         st.markdown('##### *thinking type*')
-        st.markdown("Actual MBTI: ",str(actual_type))
+        st.write("Actual MBTI: ", actual_type.upper())
         html_str = f"""<style>p.a {{font: bold 24px Courier;}}</style><p class="a">{lhood_g}% probabilty this is correct</p>"""
         st.markdown(html_str, unsafe_allow_html=True)
         # Bar Graph
