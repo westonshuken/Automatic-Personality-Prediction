@@ -108,7 +108,7 @@ dependencies:
     - pillow==9.0.1
     - prometheus-client==0.13.1
     - prompt-toolkit==3.0.28
-    - protobuf==3.19.4
+    - protobuf==3.20.3
     - ptyprocess==0.7.0
     - pure-eval==0.2.2
     - pyarrow==7.0.0
