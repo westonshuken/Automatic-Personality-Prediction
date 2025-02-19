@@ -24,7 +24,7 @@ def likelihood(text):
     return likelihood
 
 def tfidf_top(text, n=10):
-    feature_array = np.array(TFIDF.get_feature_names())
+    feature_array = np.array(TFIDF.get_feature_names_out())
     response = TFIDF.transform([text])
     tfidf_sorting = np.argsort(response.toarray()).flatten()[::-1]
     n = n
